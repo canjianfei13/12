@@ -267,8 +267,10 @@ PATCH_APK() {
     [ -z "${LN}" ] && { echo "未找到构造函数"; exit 1; }
     sed -i -e "/\.method public constructor <init>()V/,/\.end method/{/\.locals 0/a\    invoke-static {}, Lcom/android/support/Main;->Start()V" -e "}" "${SMALI}" || exit 1
 
-    local MF="${DOWNLOAD_DIR}/DECODE_Output/AndroidManifest.xml"
-    sed -i 's#</application>#    <service android:name="com.android.support.Launcher" android:enabled="true" android:exported="false" android:stopWithTask="true"/>\n    </application>\n    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>#' "${MF}" || exit 1
+    # v3.4.0 以后已不需要悬浮窗权限
+    # local MF="${DOWNLOAD_DIR}/DECODE_Output/AndroidManifest.xml"
+    # sed -i 's#</application>#    <service android:name="com.android.support.Launcher" android:enabled="true" android:exported="false" android:stopWithTask="true"/>\n    </application>\n    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>#' "${MF}" || exit 1
+
     echo "MOD 合入完成"
 }
 
